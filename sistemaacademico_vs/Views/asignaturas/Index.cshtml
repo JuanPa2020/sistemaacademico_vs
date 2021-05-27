@@ -1,0 +1,57 @@
+﻿@model IEnumerable<sistemaacademico_vs.Models.asignatura>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.profesor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.creditos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.duracion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.notas.id_nota)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.profesor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.creditos)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.duracion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.notas.id_nota)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id_asignatura }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id_asignatura }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id_asignatura })
+        </td>
+    </tr>
+}
+
+</table>

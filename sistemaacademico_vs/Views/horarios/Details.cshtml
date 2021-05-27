@@ -1,0 +1,50 @@
+﻿@model sistemaacademico_vs.Models.horario
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>horario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id_estudiante)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_estudiante)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.asignatura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.asignatura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hora)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.hora)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.aula)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.aula)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_horario }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

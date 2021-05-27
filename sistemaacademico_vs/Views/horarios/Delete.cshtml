@@ -1,0 +1,56 @@
+﻿@model sistemaacademico_vs.Models.horario
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>horario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id_estudiante)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_estudiante)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.asignatura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.asignatura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hora)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.hora)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.aula)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.aula)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,377 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="sistemaacademicoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="asignatura">
+          <Key>
+            <PropertyRef Name="id_asignatura" />
+          </Key>
+          <Property Name="id_asignatura" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="profesor" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="creditos" Type="int" Nullable="false" />
+          <Property Name="duracion" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_notas" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="estudiante">
+          <Key>
+            <PropertyRef Name="id_estudiante" />
+          </Key>
+          <Property Name="id_estudiante" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="carrera" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="semestre" Type="int" Nullable="false" />
+          <Property Name="telefono" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="horario">
+          <Key>
+            <PropertyRef Name="id_horario" />
+          </Key>
+          <Property Name="id_horario" Type="int" Nullable="false" />
+          <Property Name="id_estudiante" Type="int" Nullable="false" />
+          <Property Name="asignatura" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="hora" Type="int" Nullable="false" />
+          <Property Name="aula" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="matricula">
+          <Key>
+            <PropertyRef Name="id_matricula" />
+          </Key>
+          <Property Name="id_matricula" Type="int" Nullable="false" />
+          <Property Name="id_estudiante" Type="int" Nullable="false" />
+          <Property Name="id_asignatura" Type="int" Nullable="false" />
+          <Property Name="id_horario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="notas">
+          <Key>
+            <PropertyRef Name="id_nota" />
+          </Key>
+          <Property Name="id_nota" Type="int" Nullable="false" />
+          <Property Name="nota_1" Type="float" Nullable="false" />
+          <Property Name="nota_2" Type="float" Nullable="false" />
+          <Property Name="nota_definitiva" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_asignatura_notas">
+          <End Role="notas" Type="Self.notas" Multiplicity="1" />
+          <End Role="asignatura" Type="Self.asignatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="notas">
+              <PropertyRef Name="id_nota" />
+            </Principal>
+            <Dependent Role="asignatura">
+              <PropertyRef Name="id_notas" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_matricula_asignatura">
+          <End Role="asignatura" Type="Self.asignatura" Multiplicity="1" />
+          <End Role="matricula" Type="Self.matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="asignatura">
+              <PropertyRef Name="id_asignatura" />
+            </Principal>
+            <Dependent Role="matricula">
+              <PropertyRef Name="id_asignatura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_matricula_estudiante">
+          <End Role="estudiante" Type="Self.estudiante" Multiplicity="1" />
+          <End Role="matricula" Type="Self.matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="estudiante">
+              <PropertyRef Name="id_estudiante" />
+            </Principal>
+            <Dependent Role="matricula">
+              <PropertyRef Name="id_estudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_matricula_horario">
+          <End Role="horario" Type="Self.horario" Multiplicity="1" />
+          <End Role="matricula" Type="Self.matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="horario">
+              <PropertyRef Name="id_horario" />
+            </Principal>
+            <Dependent Role="matricula">
+              <PropertyRef Name="id_horario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="sistemaacademicoModelStoreContainer">
+          <EntitySet Name="asignatura" EntityType="Self.asignatura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="estudiante" EntityType="Self.estudiante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="horario" EntityType="Self.horario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="matricula" EntityType="Self.matricula" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="notas" EntityType="Self.notas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_asignatura_notas" Association="Self.FK_asignatura_notas">
+            <End Role="notas" EntitySet="notas" />
+            <End Role="asignatura" EntitySet="asignatura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_matricula_asignatura" Association="Self.FK_matricula_asignatura">
+            <End Role="asignatura" EntitySet="asignatura" />
+            <End Role="matricula" EntitySet="matricula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_matricula_estudiante" Association="Self.FK_matricula_estudiante">
+            <End Role="estudiante" EntitySet="estudiante" />
+            <End Role="matricula" EntitySet="matricula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_matricula_horario" Association="Self.FK_matricula_horario">
+            <End Role="horario" EntitySet="horario" />
+            <End Role="matricula" EntitySet="matricula" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="sistemaacademicoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="asignatura">
+          <Key>
+            <PropertyRef Name="id_asignatura" />
+          </Key>
+          <Property Name="id_asignatura" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="profesor" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="creditos" Type="Int32" Nullable="false" />
+          <Property Name="duracion" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="id_notas" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="notas" Relationship="Self.FK_asignatura_notas" FromRole="asignatura" ToRole="notas" />
+          <NavigationProperty Name="matricula" Relationship="Self.FK_matricula_asignatura" FromRole="asignatura" ToRole="matricula" />
+        </EntityType>
+        <EntityType Name="estudiante">
+          <Key>
+            <PropertyRef Name="id_estudiante" />
+          </Key>
+          <Property Name="id_estudiante" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="carrera" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="semestre" Type="Int32" Nullable="false" />
+          <Property Name="telefono" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="matricula" Relationship="Self.FK_matricula_estudiante" FromRole="estudiante" ToRole="matricula" />
+        </EntityType>
+        <EntityType Name="horario">
+          <Key>
+            <PropertyRef Name="id_horario" />
+          </Key>
+          <Property Name="id_horario" Type="Int32" Nullable="false" />
+          <Property Name="id_estudiante" Type="Int32" Nullable="false" />
+          <Property Name="asignatura" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="hora" Type="Int32" Nullable="false" />
+          <Property Name="aula" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="matricula" Relationship="Self.FK_matricula_horario" FromRole="horario" ToRole="matricula" />
+        </EntityType>
+        <EntityType Name="matricula">
+          <Key>
+            <PropertyRef Name="id_matricula" />
+          </Key>
+          <Property Name="id_matricula" Type="Int32" Nullable="false" />
+          <Property Name="id_estudiante" Type="Int32" Nullable="false" />
+          <Property Name="id_asignatura" Type="Int32" Nullable="false" />
+          <Property Name="id_horario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="asignatura" Relationship="Self.FK_matricula_asignatura" FromRole="matricula" ToRole="asignatura" />
+          <NavigationProperty Name="estudiante" Relationship="Self.FK_matricula_estudiante" FromRole="matricula" ToRole="estudiante" />
+          <NavigationProperty Name="horario" Relationship="Self.FK_matricula_horario" FromRole="matricula" ToRole="horario" />
+        </EntityType>
+        <EntityType Name="notas">
+          <Key>
+            <PropertyRef Name="id_nota" />
+          </Key>
+          <Property Name="id_nota" Type="Int32" Nullable="false" />
+          <Property Name="nota_1" Type="Double" Nullable="false" />
+          <Property Name="nota_2" Type="Double" Nullable="false" />
+          <Property Name="nota_definitiva" Type="Double" Nullable="false" />
+          <NavigationProperty Name="asignatura" Relationship="Self.FK_asignatura_notas" FromRole="notas" ToRole="asignatura" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_asignatura_notas">
+          <End Role="notas" Type="Self.notas" Multiplicity="1" />
+          <End Role="asignatura" Type="Self.asignatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="notas">
+              <PropertyRef Name="id_nota" />
+            </Principal>
+            <Dependent Role="asignatura">
+              <PropertyRef Name="id_notas" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_matricula_asignatura">
+          <End Role="asignatura" Type="Self.asignatura" Multiplicity="1" />
+          <End Role="matricula" Type="Self.matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="asignatura">
+              <PropertyRef Name="id_asignatura" />
+            </Principal>
+            <Dependent Role="matricula">
+              <PropertyRef Name="id_asignatura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_matricula_estudiante">
+          <End Role="estudiante" Type="Self.estudiante" Multiplicity="1" />
+          <End Role="matricula" Type="Self.matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="estudiante">
+              <PropertyRef Name="id_estudiante" />
+            </Principal>
+            <Dependent Role="matricula">
+              <PropertyRef Name="id_estudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_matricula_horario">
+          <End Role="horario" Type="Self.horario" Multiplicity="1" />
+          <End Role="matricula" Type="Self.matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="horario">
+              <PropertyRef Name="id_horario" />
+            </Principal>
+            <Dependent Role="matricula">
+              <PropertyRef Name="id_horario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="sistemaacademicoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="asignatura" EntityType="Self.asignatura" />
+          <EntitySet Name="estudiante" EntityType="Self.estudiante" />
+          <EntitySet Name="horario" EntityType="Self.horario" />
+          <EntitySet Name="matricula" EntityType="Self.matricula" />
+          <EntitySet Name="notas" EntityType="Self.notas" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_asignatura_notas" Association="Self.FK_asignatura_notas">
+            <End Role="notas" EntitySet="notas" />
+            <End Role="asignatura" EntitySet="asignatura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_matricula_asignatura" Association="Self.FK_matricula_asignatura">
+            <End Role="asignatura" EntitySet="asignatura" />
+            <End Role="matricula" EntitySet="matricula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_matricula_estudiante" Association="Self.FK_matricula_estudiante">
+            <End Role="estudiante" EntitySet="estudiante" />
+            <End Role="matricula" EntitySet="matricula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_matricula_horario" Association="Self.FK_matricula_horario">
+            <End Role="horario" EntitySet="horario" />
+            <End Role="matricula" EntitySet="matricula" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="sistemaacademicoModelStoreContainer" CdmEntityContainer="sistemaacademicoEntities">
+          <EntitySetMapping Name="asignatura">
+            <EntityTypeMapping TypeName="sistemaacademicoModel.asignatura">
+              <MappingFragment StoreEntitySet="asignatura">
+                <ScalarProperty Name="id_asignatura" ColumnName="id_asignatura" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="profesor" ColumnName="profesor" />
+                <ScalarProperty Name="creditos" ColumnName="creditos" />
+                <ScalarProperty Name="duracion" ColumnName="duracion" />
+                <ScalarProperty Name="id_notas" ColumnName="id_notas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="estudiante">
+            <EntityTypeMapping TypeName="sistemaacademicoModel.estudiante">
+              <MappingFragment StoreEntitySet="estudiante">
+                <ScalarProperty Name="id_estudiante" ColumnName="id_estudiante" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="carrera" ColumnName="carrera" />
+                <ScalarProperty Name="semestre" ColumnName="semestre" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="horario">
+            <EntityTypeMapping TypeName="sistemaacademicoModel.horario">
+              <MappingFragment StoreEntitySet="horario">
+                <ScalarProperty Name="id_horario" ColumnName="id_horario" />
+                <ScalarProperty Name="id_estudiante" ColumnName="id_estudiante" />
+                <ScalarProperty Name="asignatura" ColumnName="asignatura" />
+                <ScalarProperty Name="hora" ColumnName="hora" />
+                <ScalarProperty Name="aula" ColumnName="aula" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="matricula">
+            <EntityTypeMapping TypeName="sistemaacademicoModel.matricula">
+              <MappingFragment StoreEntitySet="matricula">
+                <ScalarProperty Name="id_matricula" ColumnName="id_matricula" />
+                <ScalarProperty Name="id_estudiante" ColumnName="id_estudiante" />
+                <ScalarProperty Name="id_asignatura" ColumnName="id_asignatura" />
+                <ScalarProperty Name="id_horario" ColumnName="id_horario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="notas">
+            <EntityTypeMapping TypeName="sistemaacademicoModel.notas">
+              <MappingFragment StoreEntitySet="notas">
+                <ScalarProperty Name="id_nota" ColumnName="id_nota" />
+                <ScalarProperty Name="nota_1" ColumnName="nota_1" />
+                <ScalarProperty Name="nota_2" ColumnName="nota_2" />
+                <ScalarProperty Name="nota_definitiva" ColumnName="nota_definitiva" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="sistemaacademicoModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

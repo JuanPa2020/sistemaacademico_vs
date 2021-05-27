@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ffc605eb79d74750bba27bf0d03b5b58" Name="Diagram1">
+        <EntityTypeShape EntityType="sistemaacademicoModel.asignatura" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="sistemaacademicoModel.estudiante" Width="1.5" PointX="7.125" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="sistemaacademicoModel.horario" Width="1.5" PointX="3.625" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="sistemaacademicoModel.matricula" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="sistemaacademicoModel.notas" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="sistemaacademicoModel.sysdiagrams" Width="1.5" PointX="0.875" PointY="3.5" IsExpanded="true" />
+        <AssociationConnector Association="sistemaacademicoModel.FK_asignatura_notas" ManuallyRouted="false" />
+        <AssociationConnector Association="sistemaacademicoModel.FK_matricula_asignatura" ManuallyRouted="false" />
+        <AssociationConnector Association="sistemaacademicoModel.FK_matricula_estudiante" ManuallyRouted="false" />
+        <AssociationConnector Association="sistemaacademicoModel.FK_matricula_horario" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

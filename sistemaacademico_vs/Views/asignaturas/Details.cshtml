@@ -1,0 +1,58 @@
+﻿@model sistemaacademico_vs.Models.asignatura
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>asignatura</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.profesor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.profesor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.creditos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.creditos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.duracion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.duracion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.notas.id_nota)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notas.id_nota)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_asignatura }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

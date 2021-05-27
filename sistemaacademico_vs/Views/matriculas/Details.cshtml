@@ -1,0 +1,42 @@
+﻿@model sistemaacademico_vs.Models.matricula
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>matricula</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.asignatura.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.asignatura.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estudiante.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estudiante.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.horario.asignatura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.horario.asignatura)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_matricula }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
